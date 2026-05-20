@@ -1,0 +1,708 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MyCommunity UAE — Your building's own app</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="MyC is the resident app for your building. Notices, neighbours, maintenance, and a calmer way to live together. Built in Abu Dhabi for buildings across the UAE.">
+<meta property="og:title" content="MyCommunity UAE — Your building's own app">
+<meta property="og:description" content="Notices, neighbours, maintenance, and a calmer way to live together.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.mycommunityuae.com">
+<link rel="icon" href="assets/icons/icon_resident.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500;1,9..144,600&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  /* ================================================================
+     HERO — split layout: dark left / cream right
+     ================================================================ */
+  .hero {
+    background: var(--navy);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    min-height: 88vh;
+  }
+  .hero-left {
+    background: var(--navy);
+    color: var(--cream);
+    padding: 80px 56px 80px max(56px, calc((100vw - var(--max-w)) / 2 + 32px));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+  }
+  /* Subtle grid pattern */
+  .hero-left::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+  }
+  .hero-left > * { position: relative; z-index: 1; }
+
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    color: var(--muted-on-dk);
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+  .hero-eyebrow::before { content: '// '; opacity: 0.55; }
+  .hero h1 {
+    font-family: var(--serif);
+    color: var(--cream);
+    font-weight: 400;
+    font-size: clamp(56px, 6.5vw, 96px);
+    line-height: 0.98;
+    letter-spacing: -0.025em;
+    margin-bottom: 28px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    font-weight: 500;
+    color: var(--accent);
+  }
+  .hero-sub {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(20px, 2vw, 24px);
+    line-height: 1.45;
+    color: var(--muted-on-dk);
+    max-width: 480px;
+    margin-bottom: 44px;
+  }
+  .hero-ctas {
+    display: flex; gap: 14px; align-items: center; flex-wrap: wrap;
+  }
+  .store-btn {
+    display: inline-flex; align-items: center; gap: 12px;
+    background: var(--cream);
+    color: var(--navy);
+    padding: 14px 22px;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: transform 0.18s var(--ease-out), background 0.18s var(--ease-out);
+  }
+  .store-btn:hover { background: #fff; transform: translateY(-1px); }
+  .store-btn svg { width: 22px; height: 22px; }
+  .store-btn .small {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    line-height: 1;
+    margin-bottom: 3px;
+  }
+  .store-btn .big {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 17px;
+    letter-spacing: -0.01em;
+    line-height: 1;
+  }
+
+  .hero-right {
+    background: var(--cream);
+    padding: 80px 56px 80px 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-right::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 360px; height: 360px;
+    background: radial-gradient(circle, rgba(218, 83, 0, 0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .phone-display {
+    position: relative;
+    z-index: 1;
+    width: 100%; max-width: 320px;
+    aspect-ratio: 1 / 2.05;
+    background: #0a0908;
+    border-radius: 44px;
+    padding: 9px;
+    box-shadow:
+      0 30px 60px -20px rgba(26, 35, 54, 0.45),
+      0 60px 100px -40px rgba(26, 35, 54, 0.3);
+    transform: rotate(-2deg);
+  }
+  .phone-display .phone-inner {
+    width: 100%; height: 100%;
+    border-radius: 36px;
+    overflow: hidden;
+    background: var(--cream);
+    position: relative;
+  }
+  .phone-display img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: top center;
+  }
+  .phone-display::before {
+    content: '';
+    position: absolute;
+    top: 14px; left: 50%;
+    transform: translateX(-50%);
+    width: 100px; height: 26px;
+    background: #0a0908;
+    border-radius: 16px;
+    z-index: 2;
+  }
+
+  /* Floating caption tag on the hero phone */
+  .phone-caption {
+    position: absolute;
+    z-index: 3;
+    background: var(--navy);
+    color: var(--cream);
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    box-shadow: 0 14px 28px -10px rgba(0,0,0,0.3);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .phone-caption.tl { top: -16px; left: -20px; }
+  .phone-caption.br { bottom: 30px; right: -28px; background: var(--accent); }
+  .phone-caption .dot {
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+  .phone-caption.br .dot { background: var(--cream); }
+
+  /* ================================================================
+     PILLARS
+     ================================================================ */
+  .pillars {
+    padding: 120px 0;
+    background: var(--cream);
+  }
+  .pillars .section-eyebrow {
+    text-align: center;
+    margin-bottom: 18px;
+  }
+  .pillars h2 {
+    text-align: center;
+    max-width: 780px;
+    margin: 0 auto 80px;
+  }
+  .pillars h2 em { font-style: italic; font-weight: 500; }
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+  .pillar {
+    background: var(--paper);
+    border: 0.5px solid var(--rule);
+    border-radius: 10px;
+    padding: 40px 36px;
+    position: relative;
+    transition: transform 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out);
+  }
+  .pillar:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 30px 50px -20px rgba(26, 35, 54, 0.15);
+  }
+  .pillar-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 32px;
+  }
+  .pillar h3 {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    margin-bottom: 14px;
+    color: var(--ink);
+  }
+  .pillar p {
+    font-family: var(--serif-text);
+    font-size: 15.5px;
+    line-height: 1.55;
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  /* ================================================================
+     PHONES — side by side with caption tags
+     ================================================================ */
+  .phones-section {
+    padding: 120px 0;
+    background: var(--paper);
+    border-top: 0.5px solid var(--rule);
+    border-bottom: 0.5px solid var(--rule);
+  }
+  .phones-section .section-eyebrow { text-align: center; margin-bottom: 18px; }
+  .phones-section h2 {
+    text-align: center;
+    max-width: 820px;
+    margin: 0 auto 80px;
+  }
+  .phones-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+    max-width: 1140px;
+    margin: 0 auto;
+  }
+  .phone-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .caption-tag {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: var(--cream);
+    border: 0.5px solid var(--rule);
+    padding: 8px 14px;
+    border-radius: 100px;
+    margin-bottom: 24px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .caption-tag .dot {
+    width: 5px; height: 5px;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+  .phone-mini {
+    width: 100%;
+    aspect-ratio: 1 / 2.05;
+    background: #0a0908;
+    border-radius: 28px;
+    padding: 6px;
+    box-shadow:
+      0 20px 40px -15px rgba(26, 35, 54, 0.35),
+      0 40px 70px -30px rgba(26, 35, 54, 0.2);
+    position: relative;
+  }
+  .phone-mini .phone-inner {
+    width: 100%; height: 100%;
+    border-radius: 22px;
+    overflow: hidden;
+    background: var(--cream);
+  }
+  .phone-mini img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: top center;
+  }
+  .phone-mini::before {
+    content: '';
+    position: absolute;
+    top: 10px; left: 50%;
+    transform: translateX(-50%);
+    width: 60px; height: 16px;
+    background: #0a0908;
+    border-radius: 10px;
+    z-index: 2;
+  }
+  .phone-caption-below {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--muted);
+    text-align: center;
+    margin-top: 16px;
+    line-height: 1.3;
+  }
+
+  /* ================================================================
+     MANAGERS — building manager pitch
+     ================================================================ */
+  .managers {
+    background: var(--navy);
+    color: var(--cream);
+    padding: 120px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .managers::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+  }
+  .managers .wrap {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .managers-eyebrow {
+    color: var(--muted-on-dk);
+    margin-bottom: 28px;
+  }
+  .managers h2 {
+    color: var(--cream);
+    font-size: clamp(40px, 4.5vw, 60px);
+    margin-bottom: 28px;
+  }
+  .managers h2 em { color: var(--accent); font-style: italic; font-weight: 500; }
+  .managers .lede {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 21px;
+    line-height: 1.5;
+    color: var(--muted-on-dk);
+    margin-bottom: 36px;
+    max-width: 480px;
+  }
+  .managers-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 40px;
+    max-width: 480px;
+  }
+  .stat {
+    border-top: 0.5px solid var(--rule-on-dk);
+    padding-top: 18px;
+  }
+  .stat-label {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted-on-dk);
+    margin-bottom: 8px;
+  }
+  .stat-value {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 30px;
+    color: var(--cream);
+    letter-spacing: -0.015em;
+  }
+  .managers-cta {
+    display: flex; gap: 14px; flex-wrap: wrap;
+  }
+  .managers-cta .btn-primary {
+    padding: 14px 22px;
+    font-size: 12.5px;
+  }
+
+  /* The admin app side */
+  .admin-display {
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+  .admin-display .phone-mini {
+    width: 80%;
+    max-width: 280px;
+    border-radius: 36px;
+    padding: 8px;
+  }
+  .admin-display .phone-mini .phone-inner { border-radius: 28px; }
+  .admin-display .phone-mini::before { width: 80px; height: 20px; top: 12px; }
+  .admin-card-float {
+    position: absolute;
+    bottom: 40px;
+    left: -10px;
+    background: var(--cream);
+    color: var(--ink);
+    padding: 18px 22px;
+    border-radius: 8px;
+    box-shadow: 0 24px 50px -10px rgba(0,0,0,0.4);
+    font-family: var(--mono);
+    z-index: 2;
+    min-width: 200px;
+  }
+  .admin-card-float .l {
+    font-size: 9.5px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .admin-card-float .v {
+    font-family: var(--serif);
+    font-size: 19px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    line-height: 1.1;
+    margin-bottom: 4px;
+  }
+  .admin-card-float .d {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+  }
+
+  /* ================================================================
+     CTA STRIP
+     ================================================================ */
+  .cta-strip {
+    background: var(--cream);
+    padding: 100px 0;
+    text-align: center;
+  }
+  .cta-strip .eyebrow { display: block; margin-bottom: 20px; }
+  .cta-strip h2 {
+    max-width: 720px;
+    margin: 0 auto 36px;
+  }
+  .cta-strip .btns {
+    display: inline-flex; gap: 14px; flex-wrap: wrap; justify-content: center;
+  }
+
+  /* ================================================================
+     RESPONSIVE
+     ================================================================ */
+  @media (max-width: 980px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-left { padding: 64px var(--gutter); }
+    .hero-right { padding: 80px var(--gutter); }
+    .pillars-grid { grid-template-columns: 1fr; gap: 20px; }
+    .phones-row { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .managers .wrap { grid-template-columns: 1fr; gap: 60px; }
+    .admin-display .phone-mini { max-width: 240px; }
+  }
+  @media (max-width: 540px) {
+    .phones-row { grid-template-columns: 1fr; max-width: 280px; }
+    .phone-caption.tl { top: -10px; left: -8px; font-size: 9.5px; padding: 8px 11px; }
+    .phone-caption.br { bottom: 20px; right: -8px; font-size: 9.5px; padding: 8px 11px; }
+    .managers-stats { grid-template-columns: 1fr 1fr; }
+    .pillars, .phones-section, .managers, .cta-strip { padding: 80px 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header on-dark">
+  <div class="wrap">
+    <a href="/" class="brand">
+      <div class="brand-mark"><em>m</em></div>
+      <div class="brand-text">MyCommunity&nbsp;UAE</div>
+    </a>
+    <nav class="nav">
+      <a href="#features">Features</a>
+      <a href="#managers">For managers</a>
+      <a href="/support.html">Support</a>
+      <a href="mailto:hello@mycommunityuae.com" class="btn btn-primary">Get in touch</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid">
+    <div class="hero-left">
+      <div class="hero-eyebrow">MyCommunity UAE</div>
+      <h1>Your building,<br><em>finally calm.</em></h1>
+      <p class="hero-sub">Notices, neighbours, maintenance, marketplace, and events — your residential community, all in one quiet app.</p>
+      <div class="hero-ctas">
+        <a href="#" class="store-btn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 12.04a4.4 4.4 0 0 1 2.1-3.68 4.5 4.5 0 0 0-3.55-1.92c-1.5-.15-2.92.88-3.68.88-.78 0-1.94-.87-3.2-.85a4.72 4.72 0 0 0-3.97 2.42c-1.7 2.96-.43 7.33 1.22 9.73.81 1.18 1.77 2.5 3.03 2.45 1.22-.05 1.68-.78 3.16-.78s1.9.78 3.2.75c1.32-.02 2.16-1.19 2.96-2.38a10.7 10.7 0 0 0 1.36-2.77 4.27 4.27 0 0 1-2.63-3.85zm-2.46-7.06A4.3 4.3 0 0 0 15.6 2a4.4 4.4 0 0 0-2.85 1.47 4.1 4.1 0 0 0-1.04 2.95 3.65 3.65 0 0 0 2.88-1.44z"/></svg>
+          <div>
+            <div class="small">Download on the</div>
+            <div class="big">App Store</div>
+          </div>
+        </a>
+        <a href="#" class="store-btn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.6 1.7a1.6 1.6 0 0 0-.6 1.3v18c0 .5.2 1 .6 1.3l10.4-10.6L3.6 1.7zM14.5 13.4l3.2 3.2-12.1 7c-.4.2-.9.2-1.3 0l10.2-10.2zM18.7 11.3l3.7 2.1c1 .6 1 2 0 2.6L19 18.1l-3.6-3.6 3.3-3.2zM14.5 10.6 4.3 .4c.4-.2.9-.2 1.3 0l12.1 7-3.2 3.2z"/></svg>
+          <div>
+            <div class="small">Get it on</div>
+            <div class="big">Google Play</div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="phone-display">
+        <div class="phone-caption tl"><span class="dot"></span>Verified residents</div>
+        <div class="phone-inner">
+          <img src="assets/screens/01_home.png" alt="MyC home screen">
+        </div>
+        <div class="phone-caption br"><span class="dot"></span>One calm feed</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PILLARS -->
+<section class="pillars" id="features">
+  <div class="wrap">
+    <div class="section-eyebrow eyebrow">What it does</div>
+    <h2>One app for everything<br>your building <em>needs.</em></h2>
+    <div class="pillars-grid">
+      <div class="pillar">
+        <div class="pillar-num">[ 01 ]</div>
+        <h3>Notices that arrive</h3>
+        <p>Building announcements, delivered to every resident's phone. Read on the way home, not when you happen to pass the noticeboard.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">[ 02 ]</div>
+        <h3>Maintenance, tracked</h3>
+        <p>Log a leak, a broken lift, a flickering corridor light. Watch the status change from new to in&nbsp;progress to resolved. No more lost requests.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">[ 03 ]</div>
+        <h3>Neighbours, not strangers</h3>
+        <p>A verified feed for your building only. Ask for a plumber, sell a sofa, plan a coffee on the roof — without exposing yourself to the internet.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHONES -->
+<section class="phones-section">
+  <div class="wrap">
+    <div class="section-eyebrow eyebrow">See it in action</div>
+    <h2>A resident app your<br>community will <em>love.</em></h2>
+    <div class="phones-row">
+      <div class="phone-item">
+        <div class="caption-tag"><span class="dot"></span>Home</div>
+        <div class="phone-mini">
+          <div class="phone-inner"><img src="assets/screens/01_home.png" alt="Home"></div>
+        </div>
+        <div class="phone-caption-below">Notices and your verified neighbour feed</div>
+      </div>
+      <div class="phone-item">
+        <div class="caption-tag"><span class="dot"></span>Marketplace</div>
+        <div class="phone-mini">
+          <div class="phone-inner"><img src="assets/screens/02_market.png" alt="Marketplace"></div>
+        </div>
+        <div class="phone-caption-below">Buy and sell within the building</div>
+      </div>
+      <div class="phone-item">
+        <div class="caption-tag"><span class="dot"></span>Events</div>
+        <div class="phone-mini">
+          <div class="phone-inner"><img src="assets/screens/03_events.png" alt="Events"></div>
+        </div>
+        <div class="phone-caption-below">RSVPs for residents' meetings and gatherings</div>
+      </div>
+      <div class="phone-item">
+        <div class="caption-tag"><span class="dot"></span>Maintenance</div>
+        <div class="phone-mini">
+          <div class="phone-inner"><img src="assets/screens/04_profile.png" alt="Profile and maintenance"></div>
+        </div>
+        <div class="phone-caption-below">Report and track building issues</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MANAGERS -->
+<section class="managers" id="managers">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow on-dark managers-eyebrow">For building managers</div>
+      <h2>Run your building, <em>remotely.</em></h2>
+      <p class="lede">An admin companion that replaces flyers, WhatsApp threads, and paper maintenance forms — with a queue, a broadcast, and an inbox.</p>
+      <div class="managers-stats">
+        <div class="stat">
+          <div class="stat-label">Cost to building</div>
+          <div class="stat-value">AED 0</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Cost to residents</div>
+          <div class="stat-value">AED 0</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Setup time</div>
+          <div class="stat-value">48 hours</div>
+        </div>
+      </div>
+      <div class="managers-cta">
+        <a href="mailto:hello@mycommunityuae.com?subject=MyC%20onboarding%20for%20our%20building" class="btn btn-primary">Onboard your building →</a>
+      </div>
+    </div>
+    <div class="admin-display">
+      <div class="phone-mini">
+        <div class="phone-inner"><img src="assets/screens/06_admin_issues.png" alt="Admin issue tracking"></div>
+      </div>
+      <div class="admin-card-float">
+        <div class="l">// Issue queue</div>
+        <div class="v">Real-time</div>
+        <div class="d">For your building</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-strip">
+  <div class="wrap">
+    <div class="eyebrow">Ready when you are</div>
+    <h2>A 15-minute chat.<br><em>No commitment.</em></h2>
+    <div class="btns">
+      <a href="mailto:hello@mycommunityuae.com" class="btn btn-primary">hello@mycommunityuae.com</a>
+      <a href="https://wa.me/971567874381" class="btn btn-ghost">WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div>
+      <a href="/" class="footer-brand">
+        <div class="brand-mark"><em>m</em></div>
+        <div class="brand-text">MyCommunity&nbsp;UAE</div>
+      </a>
+      <p class="footer-tagline">Building life, made calm. Built in Abu Dhabi for buildings across the UAE.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Product</h4>
+      <a href="#features">Features</a>
+      <a href="#managers">For managers</a>
+      <a href="/support.html">Support</a>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <a href="/privacy.html">Privacy policy</a>
+      <a href="/delete-account.html">Delete account</a>
+      <a href="mailto:hello@mycommunityuae.com">Contact</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 MyCommunity UAE</span>
+    <span>Abu Dhabi, UAE</span>
+  </div>
+</footer>
+
+</body>
+</html>
